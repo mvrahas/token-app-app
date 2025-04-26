@@ -1,0 +1,49 @@
+import { Link } from "react-router-dom"
+import { useLocation } from 'react-router-dom'
+import { HomeIcon, WrenchIcon, GiftIcon } from '@heroicons/react/24/outline'
+import useMint from "../hooks/useMint"
+
+
+const MenuButtonNav = ()=>{
+
+    const {mint} = useMint()
+    const {pathname} = useLocation()
+
+    const items = [
+        { name: 'Overview', href: '/overview', icon: HomeIcon, current: true },
+        { name: 'Sales', href: '/sales', icon: GiftIcon, current: false },
+        { name: 'Developer', href: '/developer', icon: WrenchIcon, current: false },
+    ]
+
+    function classNames(classes:string[]) {
+        return classes.filter(Boolean).join(' ')
+    }
+
+    return(
+        <>
+            {mint ? 
+                <ul role="list" className="-mx-2 space-y-1">
+                {items.map((item) => (
+                    <li key={item.name}>
+                        <Link
+                            to={`${item.href}/${mint}`}
+                            className={classNames([
+                                pathname.startsWith(item.href)
+                                ? 'bg-gray-800 text-white'
+                                : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                'w-full group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold cursor-pointer',
+                            ])}
+                        >
+                          <item.icon className="size-6 shrink-0"/>
+                          {item.name}
+                        </Link>
+                    </li>
+                ))}
+                </ul>
+            : null}
+        </>
+    )
+}
+
+
+export default MenuButtonNav
