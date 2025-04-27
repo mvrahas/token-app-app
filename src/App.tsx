@@ -16,6 +16,7 @@ import BillingSubscriptions from './pages/BillingSubscriptions'
 import BillingPayments from './pages/BillingPayments'
 import Portal from './pages/Portal'
 import GiftPortal from './pages/GiftPortal'
+import PaymentPortal from './pages/PaymentPortal'
 import UI from './components/UI'
 
 
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/billing/payments" element={<Locked><BillingPayments/></Locked>}/>
         <Route path="/portal/:_id" element={<Portal/>}/>
         <Route path="/portal/gift/:_id" element={<GiftPortal/>}/>
+        <Route path="/portal/payment" element={<PaymentPortal/>}/>
       </Routes>
     </div>
   )
