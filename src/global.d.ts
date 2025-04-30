@@ -44,12 +44,6 @@ interface Mint {
     address : string,
     authority : string,
     account : string,
-    delegate : string,
-    cluster : string,
-    bank : {
-        balance : number,
-        decimals : number,
-    },
     createdAt : Date
 }
 

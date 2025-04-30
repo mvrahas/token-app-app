@@ -52,7 +52,7 @@ const Sales = ()=>{
                         </div>
                         <div className="flex flex-none items-center gap-x-4">
                           <button
-                            onClick={()=>console.log('manage')}
+                            onClick={()=>navigate(`/tokens/mint/${mint._id}`)}
                             className="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:block cursor-pointer"
                           >
                             Manage
