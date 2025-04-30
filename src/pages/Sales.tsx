@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import api from '../functions/api'
 
 
 const Sales = ()=>{
 
-    const [mints,setMints] = useState<Mint[]>([])
-
     const navigate = useNavigate()
+
+    const [mints,setMints] = useState<Mint[]>([])
+    const get = ()=>{
+        api.get(`/mint/list`)
+        .then(r=>setMints(r.data))
+        .catch(e=>console.log(e))
+    }
+    useEffect(get,[])
 
     return (
         <div>
@@ -35,7 +42,7 @@ const Sales = ()=>{
                       <li key={mint._id} className="flex items-center justify-between gap-x-6 px-6 py-4">
                         <div className="min-w-0">
                           <div className="flex items-start gap-x-3">
-                            <p className="text-sm/6 font-semibold text-gray-900">Mint Name</p>
+                            <p className="text-sm/6 font-semibold text-gray-900">{mint.metadata.name}</p>
                           </div>
                           <div className="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
                             <p className="whitespace-nowrap">
@@ -48,7 +55,7 @@ const Sales = ()=>{
                             onClick={()=>console.log('manage')}
                             className="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:block cursor-pointer"
                           >
-                            Expire
+                            Manage
                           </button>
                         </div>
                       </li>
