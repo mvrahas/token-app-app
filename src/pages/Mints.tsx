@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import api from '../functions/api'
 
 
-const Sales = ()=>{
+const Mints = ()=>{
 
     const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ const Sales = ()=>{
                       </div>
                       <div className="mt-2 ml-4 shrink-0">
                           <button
-                            onClick={()=>navigate('/mint/create')}
+                            onClick={()=>navigate('/tokens/mint/create')}
                             className="relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                           >
                             Create
@@ -63,23 +63,16 @@ const Sales = ()=>{
                   </ul> 
                   : 
                   <div className="text-center py-16">
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                      className="mx-auto size-12 text-gray-400"
-                    >
-                      <path
-                        d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
-                        strokeWidth={2}
-                        vectorEffect="non-scaling-stroke"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="mx-auto size-12 text-gray-400">
+                        <path 
+                            strokeWidth="1" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" 
+                        />
                     </svg>
                       <h3 className="mt-2 text-sm font-semibold text-gray-900">No mints</h3>
-                      <p className="mt-1 text-sm text-gray-500">Create a mint to issue new tokens</p>
+                      <p className="mt-1 text-sm text-gray-500">Create a mint to issue tokens</p>
                   </div>
                 }
 
@@ -89,4 +82,4 @@ const Sales = ()=>{
 
 }
 
-export default Sales
+export default Mints

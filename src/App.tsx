@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Locked from './components/Locked'
 import Dashboard from './pages/Dashboard'
 import Mint from './pages/Mint'
-import Sales from './pages/Sales'
+import Mints from './pages/Mints'
 import MintKeys from './pages/MintKeys'
 import CreateMint from './pages/CreateMint'
 import AuthLogin from './pages/AuthLogin'
@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
         <Route path="/" element={<Locked><UI><Dashboard/></UI></Locked>}/>
-        <Route path="/tokens" element={<Locked><UI><Sales/></UI></Locked>}/>
+        <Route path="/tokens" element={<Locked><UI><Mints/></UI></Locked>}/>
         <Route path="/developer" element={<Locked><UI><MintKeys/></UI></Locked>}/>
         <Route path="/tokens/mint/create" element={<Locked><UI><CreateMint/></UI></Locked>}/>
         <Route path="/tokens/mint/:_id" element={<Locked><UI><Mint/></UI></Locked>}/>

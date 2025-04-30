@@ -14,6 +14,7 @@ const Mint = ()=>{
     const navigate = useNavigate()
     const [mint,setMint] = useState<Mint|null>(null)
     const [balance,setBalance] = useState<Balance|null>(null)
+    const [refresh,setRefresh] = useState(0)
 
     const getMint = ()=>{
         api.get(`/mint?_id=${_id}`)
@@ -28,7 +29,16 @@ const Mint = ()=>{
         .then(r=>setBalance(r))
         .catch(e=>console.log(e))
     }
-    useEffect(updateBalance,[mint,_id])
+    useEffect(updateBalance,[mint,_id,refresh])
+
+    const mintTokens = (amount:number)=>{
+        return api.post('/mint/mint',{
+            mintId:_id,
+            amount
+        })
+        .then(r=>setRefresh(refresh+1))
+        .catch(e=>console.log(e))
+    }
 
     console.log(SOLANA_CLUSTER)
 
@@ -73,38 +83,15 @@ const Mint = ()=>{
                     <InputButton 
                         label={'Mint Tokens'} 
                         symbol={mint.metadata.symbol}
-                        onClick={()=>console.log('hey')}
+                        onClick={(amount:number)=>mintTokens(amount)}
                     />
                 </div>
             </div>
           </GridCard>
-          <GridCard title={'Delegated Balance'}>
-            <div className='flex flex-col h-full'>
-                <div className='flex grow justify-center items-center'>
-                    <span className='text-5xl font-medium overflow-hidden text-ellipsis'>{balance ? balance.uiDelegatedAmount.toString() : null}</span>
-                </div>
-                <div className='p-4'>
-                    <InputButton 
-                        label={'Delegate Tokens'} 
-                        symbol={mint.metadata.symbol}
-                        onClick={()=>console.log('hey')}
-                    />
-                </div>
-            </div>
-          </GridCard>
-          <GridCard title={'Token Sales'}>
-            <div className='flex flex-col h-full'>
-                <div className='flex grow justify-center items-center'>
-                    <span className='text-5xl font-medium overflow-hidden text-ellipsis'>24 crp</span>
-                </div>
-                <div className='p-4'>
-                    <InputButton 
-                        label={'Cash Out'} 
-                        symbol={'USD'}
-                        onClick={()=>navigate('/billing/payments')}
-                    />
-                </div>
-            </div>
+          <GridCard title={'Landing Page'}>
+            <p>
+                Use this link to purchase
+            </p>
           </GridCard>
         </ul>
         : null}
