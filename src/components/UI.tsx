@@ -5,9 +5,7 @@ import { Bars3Icon,XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import MenuButtonNav from './MenuButtonNav'
 import ConnectWallet from './ConnectWallet'
-import MenuButtonMints from './MenuButtonMints'
 import useAuth from '../hooks/useAuth'
-import useMint from '../hooks/useMint'
 import api from '../functions/api'
 
 
@@ -18,16 +16,7 @@ const UI : React.FC<Props> = ({children})=>{
   const {organization,user} = useAuth()
   const isSubscribed = organization ? organization.billing.isSubscribed : false
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  const {mintId} = useParams()
-  const {setMint,mints,mint} = useMint()
-  useEffect(()=>{
-    if(mintId){
-      setMint(mintId)
-    }else{
-      if(!mint && mints.length){setMint(mints[0]._id)}
-    }
-  },[mintId])
+  
 
   const navigate = useNavigate()
   const logout = async ()=>{
@@ -76,9 +65,6 @@ const UI : React.FC<Props> = ({children})=>{
                     <li>
                       <MenuButtonNav/>
                     </li>
-                    <li>
-                      <MenuButtonMints/>
-                    </li>
                     <li className="mt-auto">
                       <ConnectWallet/>
                     </li>
@@ -104,9 +90,6 @@ const UI : React.FC<Props> = ({children})=>{
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <MenuButtonNav/>
-                </li>
-                <li>
-                  <MenuButtonMints/>
                 </li>
                 <li className="mt-auto">
                   <ConnectWallet/>

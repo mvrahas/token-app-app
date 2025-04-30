@@ -30,9 +30,9 @@ const App = () => {
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
         <Route path="/" element={<Locked><UI><MintEmpty/></UI></Locked>}/>
-        <Route path="/overview/:mintId" element={<Locked><UI><Mint/></UI></Locked>}/>
-        <Route path="/sales/:mintId" element={<Locked><UI><Sales/></UI></Locked>}/>
-        <Route path="/developer/:mintId" element={<Locked><UI><MintKeys/></UI></Locked>}/>
+        <Route path="/overview" element={<Locked><UI><Mint/></UI></Locked>}/>
+        <Route path="/sales" element={<Locked><UI><Sales/></UI></Locked>}/>
+        <Route path="/developer" element={<Locked><UI><MintKeys/></UI></Locked>}/>
         <Route path="/create" element={<Locked><UI><CreateMint/></UI></Locked>}/>
         <Route path="/billing/subscriptions" element={<Locked><UI><BillingSubscriptions/></UI></Locked>}/>
         <Route path="/billing/success" element={<Locked><BillingSuccess/></Locked>}/>

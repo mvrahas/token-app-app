@@ -2,7 +2,6 @@ import {useState,FormEvent} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import api from '../functions/api'
 import useAuth from '../hooks/useAuth'
-import useMint from '../hooks/useMint'
 
 
 
@@ -17,7 +16,6 @@ function AuthLogin() {
   const [error,setError] = useState('')
 
   const {login} = useAuth()
-  const {getMints} = useMint()
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -26,7 +24,6 @@ function AuthLogin() {
       const {data} = await api.post('/auth/login',{email,password})
       localStorage.setItem('auth',data.auth)
       await login()
-      await getMints()
       navigate('/')
       console.log(data.auth)
     }catch(e){
