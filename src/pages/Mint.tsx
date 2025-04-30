@@ -6,7 +6,7 @@ import GridCard from '../components/GridCard'
 import AddressLink from '../components/AddressLink'
 import InputButton from '../components/InputButton'
 
-const SOLANA_CLUSTER = import.meta.env.SOLANA_CLUSTER
+const SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER
 
 const Mint = ()=>{
 
@@ -29,6 +29,8 @@ const Mint = ()=>{
         .catch(e=>console.log(e))
     }
     useEffect(updateBalance,[mint,_id])
+
+    console.log(SOLANA_CLUSTER)
 
     return (
         <>

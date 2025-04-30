@@ -8,9 +8,9 @@ const MenuButtonNav = ()=>{
     const {pathname} = useLocation()
 
     const items = [
-        { name: 'Overview', href: '/overview', icon: HomeIcon, current: true },
+        { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
         { name: 'Tokens', href: '/tokens', icon: GiftIcon, current: false },
-        { name: 'Developer', href: '/developer', icon: WrenchIcon, current: false },
+        { name: 'Settings', href: '/developer', icon: WrenchIcon, current: false },
     ]
 
     function classNames(classes:string[]) {
@@ -25,9 +25,7 @@ const MenuButtonNav = ()=>{
                     <Link
                         to={`${item.href}`}
                         className={classNames([
-                            pathname.startsWith(item.href)
-                            ? 'bg-gray-800 text-white'
-                            : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                            pathname==='/' && item.href==='/' ? 'bg-gray-800 text-white' : pathname!=='/' && item.href!=='/' && pathname.startsWith(item.href) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white',
                             'w-full group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold cursor-pointer',
                         ])}
                     >

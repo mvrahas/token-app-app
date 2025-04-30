@@ -1,10 +1,10 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Locked from './components/Locked'
+import Dashboard from './pages/Dashboard'
 import Mint from './pages/Mint'
 import Sales from './pages/Sales'
 import MintKeys from './pages/MintKeys'
-import MintEmpty from './pages/MintEmpty'
 import CreateMint from './pages/CreateMint'
 import AuthLogin from './pages/AuthLogin'
 import CompleteSetup from './pages/CompleteSetup'
@@ -29,8 +29,7 @@ const App = () => {
         <Route path="/auth/reset" element={<AuthReset/>}/>
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
-        <Route path="/" element={<Locked><UI><MintEmpty/></UI></Locked>}/>
-        <Route path="/overview" element={<Locked><UI><Mint/></UI></Locked>}/>
+        <Route path="/" element={<Locked><UI><Dashboard/></UI></Locked>}/>
         <Route path="/tokens" element={<Locked><UI><Sales/></UI></Locked>}/>
         <Route path="/developer" element={<Locked><UI><MintKeys/></UI></Locked>}/>
         <Route path="/tokens/mint/create" element={<Locked><UI><CreateMint/></UI></Locked>}/>
