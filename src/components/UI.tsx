@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from 'react'
-import { Link,useNavigate,useParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link,useNavigate } from 'react-router-dom'
 import { Dialog,DialogBackdrop,DialogPanel,Menu,MenuButton,MenuItem,MenuItems,TransitionChild } from '@headlessui/react'
 import { Bars3Icon,XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
@@ -16,7 +16,7 @@ const UI : React.FC<Props> = ({children})=>{
   const {organization,user} = useAuth()
   const isSubscribed = organization ? organization.billing.isSubscribed : false
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  
+
 
   const navigate = useNavigate()
   const logout = async ()=>{

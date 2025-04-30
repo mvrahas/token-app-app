@@ -9,7 +9,7 @@ const MenuButtonNav = ()=>{
 
     const items = [
         { name: 'Overview', href: '/overview', icon: HomeIcon, current: true },
-        { name: 'Sales', href: '/sales', icon: GiftIcon, current: false },
+        { name: 'Tokens', href: '/tokens', icon: GiftIcon, current: false },
         { name: 'Developer', href: '/developer', icon: WrenchIcon, current: false },
     ]
 

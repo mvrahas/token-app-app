@@ -2,8 +2,6 @@ import {useState,ChangeEvent,FormEvent,useRef} from 'react'
 import api from '../functions/api'
 import getImageDimensions from '../functions/getImageDimensions'
 import uploadFile from '../functions/uploadFile'
-import createToken from '../functions/createToken'
-import useWallet from '../hooks/useWallet'
 import {Link,useNavigate} from 'react-router-dom'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 
@@ -12,7 +10,6 @@ const CreateMint = ()=>{
 
 
     const navigate = useNavigate()
-    const {publicKey} = useWallet()
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState('')
 
@@ -30,36 +27,38 @@ const CreateMint = ()=>{
         setError('')
         setLoading(true)
         try{
-            if(!tokenImage){
-              setError('Please upload an image!')
-              setLoading(false)
-              return
-            }
-            if(!publicKey){
-              setError('Please connect your wallet!')
-              setLoading(false)
-              return
-            }
-            const tokenImageURI = await uploadFile(tokenImage,'png')
-            const metaplexMetadata = {
-                name: tokenName,
-                symbol: tokenSymbol,
-                description: tokenDescription,
-                image: tokenImageURI,
-            }
-            const jsonString = JSON.stringify(metaplexMetadata)
-            const jsonFile = new File([jsonString],"metadata.json",{type: "application/json"})
-            const metaplexMetadataURI = await uploadFile(jsonFile,'json')
-            const info = await createToken(
-                publicKey,
-                cluster,
-                metaplexMetadata,
-                metaplexMetadataURI,
-            )
-            const response = await api.post('/mint',info)
-            navigate(`/overview/${response.data._id}`)
+
+          //validate required fields
+          if(!tokenImage){
+            setError('Please upload an image!')
+            setLoading(false)
+            return
+          }
+
+          //create metadata
+          const tokenImageURI = await uploadFile(tokenImage,'png')
+          const metaplexMetadata = {
+              name: tokenName,
+              symbol: tokenSymbol,
+              description: tokenDescription,
+              image: tokenImageURI,
+          }
+          const jsonString = JSON.stringify(metaplexMetadata)
+          const jsonFile = new File([jsonString],"metadata.json",{type: "application/json"})
+          const metaplexMetadataURI = await uploadFile(jsonFile,'json')
+
+          //api call to create mint
+          await api.post('/mint',{
+            metadata:metaplexMetadata,
+            metadataURI:metaplexMetadataURI,
+          })
+            
+          //ok->
+          navigate(`/tokens`)
+
         }catch(e){
-            setError('Oops! Something went wrong. Please try again.')
+          console.log(e)
+          setError('Oops! Something went wrong. Please try again.')
         }
         setLoading(false)
     }
@@ -312,7 +311,7 @@ const CreateMint = ()=>{
 
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link to={'/'} className="text-sm/6 font-semibold text-gray-900">
+            <Link to={'/tokens'} className="text-sm/6 font-semibold text-gray-900">
               Cancel
             </Link>
             <button

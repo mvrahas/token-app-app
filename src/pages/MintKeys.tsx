@@ -40,7 +40,10 @@ const MintKeys = ()=>{
     return (
 
         <div>
-            {key ? <div className='flex flex-row items-center p-6 bg-gray-100 mb-4 rounded-lg'>
+
+
+            {key ? 
+              <div className='flex flex-row items-center p-6 bg-gray-100 mb-4 rounded-lg'>
                 <input
                     defaultValue="you@example.com"
                     id="email"
@@ -53,10 +56,13 @@ const MintKeys = ()=>{
                 {copied ? <span className='ml-4 text-gray-400'>Copied!</span> : <button onClick={()=>copy()} className='cursor-pointer ml-2 text-gray-400'>
                     <DocumentDuplicateIcon className='size-6'/>
                 </button>}
-                </div> : null}
-        <div className='rounded-lg bg-white shadow-sm'>
+              </div> 
+            : null}
 
-            <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+
+            <div className='rounded-lg bg-white shadow-sm'>
+
+              <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
                 <div className="-mt-2 -ml-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                     <div className="mt-2 ml-4">
                         <h3 className="text-base font-semibold text-gray-900">API Keys</h3>
@@ -70,8 +76,9 @@ const MintKeys = ()=>{
                         </button>
                     </div>
                 </div>
-            </div>
-            {keys.length 
+              </div>
+              
+              {keys.length 
                 ? 
                 <ul role="list" className="divide-y divide-gray-100">
                   {keys.map((key) => (
@@ -117,8 +124,11 @@ const MintKeys = ()=>{
                     <h3 className="mt-2 text-sm font-semibold text-gray-900">No keys</h3>
                     <p className="mt-1 text-sm text-gray-500">Create a key to access the API</p>
                 </div>
-            }
+              }
+
             </div>
+
+
         </div>
       )
 
