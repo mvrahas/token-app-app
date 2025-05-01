@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import api from '../functions/api'
 import getBalance from '../functions/getBalance'
 import GridCard from '../components/GridCard'
@@ -11,10 +11,10 @@ const SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER
 const Mint = ()=>{
 
     const {_id} = useParams()
-    const navigate = useNavigate()
     const [mint,setMint] = useState<Mint|null>(null)
     const [balance,setBalance] = useState<Balance|null>(null)
     const [refresh,setRefresh] = useState(0)
+    const portalURL = `${window.location.origin}/portal/gift/${_id}`
 
     const getMint = ()=>{
         api.get(`/mint?_id=${_id}`)
@@ -89,9 +89,8 @@ const Mint = ()=>{
             </div>
           </GridCard>
           <GridCard title={'Landing Page'}>
-            <p>
-                Use this link to purchase
-            </p>
+            <p>Use this link to purchase</p>
+            <p className='text-xs'>{portalURL}</p>
           </GridCard>
         </ul>
         : null}
