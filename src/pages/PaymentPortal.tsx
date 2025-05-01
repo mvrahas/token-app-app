@@ -1,8 +1,41 @@
 import DropdownMenu from "../components/DropdownMenu"
 import { XMarkIcon } from '@heroicons/react/16/solid'
+import useWallet from "../hooks/useWallet"
+import { txConvert } from "@numin/web-sdk"
+import axios from "axios"
+export const BASE_URL = import.meta.env.VITE_BASE_URL
 
 
 const PaymentPortal = ()=>{
+
+    const {publicKey,connect} = useWallet()
+    const _id = '6813e21dc19152a18a93a3b6'
+
+    //make purchase
+    const pay = async ()=>{
+
+        try{
+
+            //create gift tx
+            const createResponse = await axios.post(
+                `${BASE_URL}/transaction/payment/create`,
+                {wallet:publicKey,amountUSD:.02,amountToken:0},
+                {headers:{'Authorization':`Bearer ${_id}`}}
+            )
+
+            console.log(createResponse)
+
+            //deserialize and send transaction
+            const transaction = txConvert(createResponse.data.base64Transaction)
+            const {signature} = await window.phantom.solana.signAndSendTransaction(transaction)
+
+            console.log(signature)
+
+        }catch(e){
+            console.log('Something went wrong')
+        }
+    }
+
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
 
@@ -51,14 +84,25 @@ const PaymentPortal = ()=>{
                             </div>
 
 
+                            {publicKey ? 
                             <div className="w-full mt-2">
                                 <button 
-                                    onClick={()=>console.log('connect')}
+                                    onClick={pay}
+                                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                                >
+                                    Pay with ur wallet
+                                </button>
+                            </div>
+                            : 
+                            <div className="w-full mt-2">
+                                <button 
+                                    onClick={connect}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                                 >
                                     Connect Wallet
                                 </button>
                             </div>
+                            }
 
 
 
