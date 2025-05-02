@@ -13,7 +13,7 @@ const Mints = ()=>{
         .then(r=>setMints(r.data))
         .catch(e=>console.log(e))
     }
-    useEffect(get,[])
+    useEffect(()=>get(),[])
 
     return (
         <div>

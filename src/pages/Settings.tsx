@@ -1,25 +1,22 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import api from '../functions/api'
 import { DocumentDuplicateIcon } from '@heroicons/react/20/solid'
 
 
-const MintKeys = ()=>{
-
-    const {mintId} = useParams()
+const Settings = ()=>{
 
     const [keys,setKeys] = useState<Key[]>([])
     const get = ()=>{
-        api.get(`key/list?mintId=${mintId}`)
+        api.get(`key/list`)
         .then(r=>setKeys(r.data))
         .catch(e=>console.log(e))
     }
-    useEffect(get,[mintId])
+    useEffect(()=>get(),[])
 
     const [key,setKey] = useState()
     const [copied,setCopied] = useState(false)
     const create = ()=>{
-        api.post(`/key`,{mintId:mintId})
+        api.post(`/key`,{})
         .then(r=>setKey(r.data.auth))
         .catch(e=>console.log(e))
     }
@@ -134,4 +131,4 @@ const MintKeys = ()=>{
 
 }
 
-export default MintKeys
+export default Settings

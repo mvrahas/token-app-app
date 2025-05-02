@@ -10,7 +10,7 @@ const MenuButtonNav = ()=>{
     const items = [
         { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
         { name: 'Tokens', href: '/tokens', icon: GiftIcon, current: false },
-        { name: 'Settings', href: '/developer', icon: WrenchIcon, current: false },
+        { name: 'Settings', href: '/settings', icon: WrenchIcon, current: false },
     ]
 
     function classNames(classes:string[]) {
