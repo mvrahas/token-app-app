@@ -39,7 +39,7 @@ const App = () => {
         <Route path="/billing/payments" element={<Locked><BillingPayments/></Locked>}/>
         <Route path="/portal/:_id" element={<Portal/>}/>
         <Route path="/portal/gift/:_id" element={<GiftPortal/>}/>
-        <Route path="/portal/payment" element={<PaymentPortal/>}/>
+        <Route path="/portal/payment/:_id" element={<PaymentPortal/>}/>
       </Routes>
     </div>
   )

@@ -1,5 +1,7 @@
+import { useState,useEffect } from "react"
 import DropdownMenu from "../components/DropdownMenu"
 import { XMarkIcon } from '@heroicons/react/16/solid'
+import { useParams } from "react-router-dom"
 import useWallet from "../hooks/useWallet"
 import { txConvert } from "@numin/web-sdk"
 import axios from "axios"
@@ -8,8 +10,26 @@ export const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const PaymentPortal = ()=>{
 
+
     const {publicKey,connect} = useWallet()
-    const _id = '6813e21dc19152a18a93a3b6'
+    const {_id} = useParams()
+
+
+    //load info
+    const [info, setInfo] = useState<PaymentPortalInfo|null>(null)
+    const load = async ()=>{
+        try{
+            const response = await axios.get(
+                `${BASE_URL}/payment`,
+                {headers:{'Authorization':`Bearer ${_id}`}}
+            )
+            setInfo(response.data)
+        }catch(e){
+            console.log('Something went wrong!')
+        }
+    }
+    useEffect(()=>{load()},[])
+
 
     //make purchase
     const pay = async ()=>{
@@ -39,6 +59,8 @@ const PaymentPortal = ()=>{
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
 
+                    {info ?
+
                     <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
         
         
@@ -47,8 +69,8 @@ const PaymentPortal = ()=>{
 
                             <div className="flex flex-col items-center mb-10 mt-4">
                                 <p className="text-md mb-1">Amount Due</p>
-                                <label className="text-3xl font-bold mb-1.5">$84.50</label>
-                                <div className="text-xs p-1 rounded-sm bg-gray-200">Great Oak</div>
+                                <label className="text-3xl font-bold mb-1.5">${info.amountUSD.toFixed(2)}</label>
+                                <div className="text-xs p-1 rounded-sm bg-gray-200">{info.name}</div>
                             </div>
 
 
@@ -113,6 +135,8 @@ const PaymentPortal = ()=>{
         
         
                     </div>
+
+                    : null}
 
                 </div>
     )

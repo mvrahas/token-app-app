@@ -91,3 +91,9 @@ interface GiftPortalInfo {
     }
     tokenUSDValue : number,
 }
+
+interface PaymentPortalInfo {
+    name: string,
+    amountUSD: number,
+    returnURL: string,
+}
