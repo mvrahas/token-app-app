@@ -41,8 +41,8 @@ const PaymentPortal = ()=>{
 
             //create gift tx
             const createResponse = await axios.post(
-                `${BASE_URL}/transaction/payment/create`,
-                {wallet:publicKey,amountUSD:.02,amountToken:0},
+                `${BASE_URL}/payment/create`,
+                {wallet:publicKey,amountToken:tokenAmount},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
 
