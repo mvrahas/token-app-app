@@ -93,7 +93,16 @@ interface GiftPortalInfo {
 }
 
 interface PaymentPortalInfo {
-    name: string,
-    amountUSD: number,
-    returnURL: string,
+    name : string,
+    amountUSD : number,
+    returnURL : string,
+    token : {
+        metadata : {
+            name : string,
+            symbol : string,
+            description : string,
+            image : string
+        },
+        tokenUSDValue : number
+    }
 }

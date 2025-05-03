@@ -13,9 +13,8 @@ const PaymentPortal = ()=>{
 
 
     const {_id} = useParams()
-    const [activeView,setActiveView] = useState('confirmation')
+    const [activeView,setActiveView] = useState('payment')
     const [tokenAmount,setTokenAmount] = useState(0)
-    const tokenUSDValue = .01
     const {publicKey,connect} = useWallet()
 
 
@@ -75,15 +74,12 @@ const PaymentPortal = ()=>{
                             setActiveView={setActiveView}
                             tokenAmount={tokenAmount}
                             setTokenAmount={setTokenAmount}
-                            tokenUSDValue={tokenUSDValue}
                         /> : 
                     activeView === 'redemption' ? 
                         <PaymentRedemptionWidget 
                             info={info}
                             setActiveView={setActiveView}
-                            tokenAmount={tokenAmount}
                             setTokenAmount={setTokenAmount}
-                            tokenUSDValue={tokenUSDValue}
                         />  : 
                     activeView === 'confirmation' ? 
                         <PaymentConfirmationWidget

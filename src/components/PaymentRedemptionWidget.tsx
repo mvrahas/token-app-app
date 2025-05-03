@@ -4,13 +4,11 @@ import React,{useState} from "react"
 interface PaymentRedemptionWidgetProps {
     info : PaymentPortalInfo
     setActiveView: Function,
-    tokenAmount : number,
     setTokenAmount : Function,
-    tokenUSDValue : number,
 }
 
 
-const PaymentRedemptionWidget : React.FC<PaymentRedemptionWidgetProps> = ({info,setActiveView,tokenAmount,setTokenAmount,tokenUSDValue})=>{
+const PaymentRedemptionWidget : React.FC<PaymentRedemptionWidgetProps> = ({info,setActiveView,setTokenAmount})=>{
     
     const [amount,setAmount] = useState(0)
 
@@ -21,9 +19,9 @@ const PaymentRedemptionWidget : React.FC<PaymentRedemptionWidgetProps> = ({info,
                         <div className="flex flex-col items-center w-full mb-3 p-5 bg-white ring-1 shadow-xs ring-gray-900/5 rounded-xl">
 
                             <div className="flex flex-col items-center mb-5">
-                                <p className="text-md mb-2">Coffee Beans</p>
-                                <img className="h-18 w-18 rounded-full border-5 border-gray-400 mb-2" src={'/token-icon-cbx.png'}/>
-                                <p className="text-xs text-gray-400">{amount} CBX = {(amount*tokenUSDValue).toFixed(2)} USD</p>
+                                <p className="text-md mb-2">{info.token.metadata.name}</p>
+                                <img className="h-18 w-18 rounded-full border-5 border-gray-400 mb-2" src={info.token.metadata.image}/>
+                                <p className="text-xs text-gray-400">{amount} {info.token.metadata.symbol} = {(amount*info.token.tokenUSDValue).toFixed(2)} USD</p>
                             </div>
 
                             <div className="w-full">

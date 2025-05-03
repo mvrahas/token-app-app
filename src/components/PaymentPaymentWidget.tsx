@@ -1,6 +1,6 @@
 import React from "react"
 import DropdownMenu from "../components/DropdownMenu"
-import { XMarkIcon, StarIcon } from '@heroicons/react/16/solid'
+import { StarIcon } from '@heroicons/react/16/solid'
 
 
 interface PaymentPaymentWidgetProps {
@@ -11,11 +11,10 @@ interface PaymentPaymentWidgetProps {
     setActiveView : Function,
     tokenAmount : number,
     setTokenAmount : Function,
-    tokenUSDValue : number
 }
 
 
-const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,publicKey,pay,connect,setActiveView,tokenAmount,setTokenAmount,tokenUSDValue})=>{
+const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,publicKey,pay,connect,setActiveView,tokenAmount,setTokenAmount})=>{
 
     return(
         <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
@@ -26,8 +25,8 @@ const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,public
 
                             <div className="flex flex-col items-center mb-10 mt-4">
                                 <p className="text-md mb-1">Amount Due</p>
-                                <label className="text-3xl font-bold mb-1.5">${(info.amountUSD - (tokenAmount * tokenUSDValue) ).toFixed(2)}</label>
-                                {tokenAmount ? <label className="text-xs text-red-500 mb-2">+{tokenAmount} CBX</label> : null}
+                                <label className="text-3xl font-bold mb-1.5">${(info.amountUSD - (info.token ?(tokenAmount*info.token.tokenUSDValue):0)).toFixed(2)}</label>
+                                {tokenAmount ? <label className="text-xs text-red-500 mb-2">+{tokenAmount} {info.token.metadata.symbol}</label> : null}
                                 <div className="text-xs p-1 rounded-sm bg-gray-200">{info.name}</div>
                             </div>
 
@@ -44,11 +43,11 @@ const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,public
                                     <StarIcon
                                         className="size-5 text-gray-500"
                                     />
-                                    <p className="text-sm text-white ml-2">Coffee Beans</p>
+                                    <p className="text-sm text-white ml-2">{info.token.metadata.name}</p>
                                 </div>
                                 <div className="flex flex-row items-center">
-                                    <p className="text-xs text-gray-400 mr-2">CBX</p>
-                                    <img className="h-8 w-8 rounded-full" src={'/token-icon-cbx.png'}/>
+                                    <p className="text-xs text-gray-400 mr-2">{info.token.metadata.symbol}</p>
+                                    <img className="h-8 w-8 rounded-full" src={info.token.metadata.image}/>
                                 </div>
                             </div>
 
@@ -57,27 +56,30 @@ const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,public
                             
                             <div className="h-6"></div>
 
-                            
 
-                        {tokenAmount ? 
-                            <div className="w-full mt-2">
-                                <button 
-                                    onClick={()=>setTokenAmount(0)}
-                                    className="flex w-full justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
-                                >
-                                    - Remove
-                                </button>
-                            </div>
-                            : 
-                            <div className="w-full mt-2">
-                                <button 
-                                    onClick={()=>setActiveView('redemption')}
-                                    className="flex w-full justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
-                                >
-                                    + Redeem
-                                </button>
-                            </div>
-                        }
+                        {info.token ?
+                        <>
+                            {tokenAmount ? 
+                                <div className="w-full mt-2">
+                                    <button 
+                                        onClick={()=>setTokenAmount(0)}
+                                        className="flex w-full justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                                    >
+                                        - Remove
+                                    </button>
+                                </div>
+                                : 
+                                <div className="w-full mt-2">
+                                    <button 
+                                        onClick={()=>setActiveView('redemption')}
+                                        className="flex w-full justify-center rounded-md bg-gray-200 px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xs hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                                    >
+                                        + Redeem
+                                    </button>
+                                </div>
+                            }
+                        </>
+                        : null}
                             
 
 
