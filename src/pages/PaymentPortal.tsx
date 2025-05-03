@@ -7,16 +7,16 @@ export const BASE_URL = import.meta.env.VITE_BASE_URL
 
 import PaymentPaymentWidget from "../components/PaymentPaymentWidget"
 import PaymentRedemptionWidget from "../components/PaymentRedemptionWidget"
+import PaymentConfirmationWidget from "../components/PaymentConfirmationWidget"
 
 const PaymentPortal = ()=>{
 
 
     const {_id} = useParams()
-    const [activeView,setActiveView] = useState('payment')
+    const [activeView,setActiveView] = useState('confirmation')
     const [tokenAmount,setTokenAmount] = useState(0)
     const tokenUSDValue = .01
     const {publicKey,connect} = useWallet()
-
 
 
     //load info
@@ -60,31 +60,36 @@ const PaymentPortal = ()=>{
         }
     }
 
+    
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
 
             {info ? <>
                 {
                     activeView === 'payment' ? 
-                    <PaymentPaymentWidget 
-                        info={info} 
-                        publicKey={publicKey} 
-                        pay={pay} 
-                        connect={connect}
-                        setActiveView={setActiveView}
-                        tokenAmount={tokenAmount}
-                        setTokenAmount={setTokenAmount}
-                        tokenUSDValue={tokenUSDValue}
-                    /> : 
+                        <PaymentPaymentWidget 
+                            info={info} 
+                            publicKey={publicKey} 
+                            pay={pay} 
+                            connect={connect}
+                            setActiveView={setActiveView}
+                            tokenAmount={tokenAmount}
+                            setTokenAmount={setTokenAmount}
+                            tokenUSDValue={tokenUSDValue}
+                        /> : 
                     activeView === 'redemption' ? 
-                    <PaymentRedemptionWidget 
-                        info={info}
-                        setActiveView={setActiveView}
-                        tokenAmount={tokenAmount}
-                        setTokenAmount={setTokenAmount}
-                        tokenUSDValue={tokenUSDValue}
-                    />  : 
-                    null
+                        <PaymentRedemptionWidget 
+                            info={info}
+                            setActiveView={setActiveView}
+                            tokenAmount={tokenAmount}
+                            setTokenAmount={setTokenAmount}
+                            tokenUSDValue={tokenUSDValue}
+                        />  : 
+                    activeView === 'confirmation' ? 
+                        <PaymentConfirmationWidget
+                            info={info}
+                        />
+                    : null
                 }
             </> : null}
 
