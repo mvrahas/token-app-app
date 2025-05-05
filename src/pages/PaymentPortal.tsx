@@ -8,6 +8,7 @@ export const BASE_URL = import.meta.env.VITE_BASE_URL
 import PaymentPaymentWidget from "../components/PaymentPaymentWidget"
 import PaymentRedemptionWidget from "../components/PaymentRedemptionWidget"
 import PaymentConfirmationWidget from "../components/PaymentConfirmationWidget"
+import PaymentErrorWidget from "../components/PaymentErrorWidget"
 
 const PaymentPortal = ()=>{
 
@@ -104,6 +105,10 @@ const PaymentPortal = ()=>{
                         />  : 
                     activeView === 'confirmation' ? 
                         <PaymentConfirmationWidget
+                            info={info}
+                        /> :
+                    activeView === 'error' ? 
+                        <PaymentErrorWidget
                             info={info}
                         />
                     : null
