@@ -14,6 +14,8 @@ const PaymentPortal = ()=>{
 
     const {_id} = useParams()
     const [activeView,setActiveView] = useState('payment')
+    const [loading,setLoading] = useState(false)
+    const [processing,setProcessing] = useState(false)
     const [tokenAmount,setTokenAmount] = useState(0)
     const {publicKey,connect} = useWallet()
 
@@ -27,6 +29,11 @@ const PaymentPortal = ()=>{
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
             setInfo(response.data)
+            setActiveView(
+                response.data.status === 'confirmed' ? 'confirmation' 
+                : response.data.status === 'failed' ? 'error' 
+                : 'payment'
+            )
         }catch(e){
             console.log('Something went wrong!')
         }
@@ -37,26 +44,38 @@ const PaymentPortal = ()=>{
     //make purchase
     const pay = async ()=>{
 
+        setLoading(true)
         try{
 
-            //create gift tx
+            //create tx
             const createResponse = await axios.post(
                 `${BASE_URL}/payment/create`,
                 {wallet:publicKey,amountToken:tokenAmount},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
 
-            console.log(createResponse)
-
             //deserialize and send transaction
             const transaction = txConvert(createResponse.data.base64Transaction)
             const {signature} = await window.phantom.solana.signAndSendTransaction(transaction)
 
-            console.log(signature)
+            //confirm tx
+            setProcessing(true)
+            try{
+                await axios.post(
+                    `${BASE_URL}/payment/process`,
+                    {signature},
+                    {headers:{'Authorization':`Bearer ${_id}`}}
+                )
+                setActiveView('confirmation')
+            }catch{
+                setActiveView('error')
+            }
+            setProcessing(false)
 
         }catch(e){
-            console.log('Something went wrong')
+            console.log(e)
         }
+        setLoading(false)
     }
 
     
@@ -74,6 +93,8 @@ const PaymentPortal = ()=>{
                             setActiveView={setActiveView}
                             tokenAmount={tokenAmount}
                             setTokenAmount={setTokenAmount}
+                            loading={loading}
+                            processing={processing}
                         /> : 
                     activeView === 'redemption' ? 
                         <PaymentRedemptionWidget 

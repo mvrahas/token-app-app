@@ -11,10 +11,12 @@ interface PaymentPaymentWidgetProps {
     setActiveView : Function,
     tokenAmount : number,
     setTokenAmount : Function,
+    loading : boolean,
+    processing : boolean,
 }
 
 
-const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,publicKey,pay,connect,setActiveView,tokenAmount,setTokenAmount})=>{
+const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,publicKey,pay,connect,setActiveView,tokenAmount,setTokenAmount,loading,processing})=>{
 
     return(
         <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
@@ -92,7 +94,7 @@ const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,public
                                     onClick={()=>pay()}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                                 >
-                                    Pay with ur wallet
+                                    {processing ? 'Processing...' : loading ? 'Loading...' : 'Pay with ur wallet'}
                                 </button>
                             </div>
                             : 

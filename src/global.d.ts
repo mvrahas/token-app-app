@@ -105,4 +105,5 @@ interface PaymentPortalInfo {
         },
         tokenUSDValue : number
     }
+    status : string
 }
