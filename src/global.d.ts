@@ -106,5 +106,6 @@ interface PaymentPortalInfo {
         },
         tokenUSDValue : number
     }
-    status : string
+    processed : boolean,
+    confirmed : boolean,
 }

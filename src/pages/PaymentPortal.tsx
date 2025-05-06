@@ -31,8 +31,8 @@ const PaymentPortal = ()=>{
             )
             setInfo(response.data)
             setActiveView(
-                response.data.status === 'confirmed' ? 'confirmation' 
-                : response.data.status === 'failed' ? 'error' 
+                response.data.confirmed ? 'confirmation' 
+                : response.data.processed && !response.data.confirmed ? 'error' 
                 : 'payment'
             )
         }catch(e){
