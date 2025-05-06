@@ -24,7 +24,7 @@ const PaymentConfirmationWidget : React.FC<PaymentConfirmationWidgetProps> = ({i
                         <div className="mt-3 text-center sm:mt-5">
                             <h3 className="text-base font-semibold text-gray-900" id="modal-title">Payment successful</h3>
                             <div className="mt-2 mb-3">
-                                <p className="text-sm text-gray-500">Please see the signature below as a record of the transaction.</p>
+                                <p className="text-sm text-gray-500">Follow the link below to go back to the original website.</p>
                             </div>
                         </div>
                     </div>
