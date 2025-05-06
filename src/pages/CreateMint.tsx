@@ -18,7 +18,6 @@ const CreateMint = ()=>{
     const [tokenSymbol, setTokenSymbol] = useState('')
     const [tokenDescription, setTokenDescription] = useState('')
     const [tokenImage, setTokenImage] = useState<File|undefined>()
-    const [cluster, setCluster] = useState('devnet')
 
 
     //CREATE MINT
@@ -117,12 +116,6 @@ const CreateMint = ()=>{
       }
       //set the image
       setTokenImage(imageFile)
-    }
-
-
-    //RADIO BUTTON
-    const handleClusterChange = async (event:ChangeEvent<HTMLInputElement>) => {
-        setCluster(event.target.value)
     }
 
 
@@ -243,66 +236,6 @@ const CreateMint = ()=>{
 
               </div>
             </div>
-
-                
-
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
-              <div>
-                <h2 className="text-base/7 font-semibold text-gray-900">Deployment</h2>
-                <p className="mt-1 text-sm/6 text-gray-600">
-                  Please choose the Solana cluster where you would like your mint to be published.
-                </p>
-              </div>
-              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-
-
-                <div className="sm:col-span-4">
-                  <fieldset className="-space-y-px rounded-md bg-white">
-                    <label
-                      className="group flex cursor-pointer border border-gray-200 p-4 first:rounded-tl-md first:rounded-tr-md last:rounded-br-md last:rounded-bl-md focus:outline-hidden has-checked:relative has-checked:border-indigo-200 has-checked:bg-indigo-50"
-                    >
-                      <input
-                        type="radio" 
-                        id="devnet" 
-                        name="cluster" 
-                        value="devnet"
-                        onChange={handleClusterChange}
-                        checked={cluster === 'devnet'}
-                        className="relative mt-0.5 size-4 shrink-0 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                      />
-                      <span className="ml-3 flex flex-col">
-                        <span className="block text-sm font-medium text-gray-900 group-has-checked:text-indigo-900">
-                          Devnet
-                        </span>
-                        <span className="block text-sm text-gray-500 group-has-checked:text-indigo-700">For test environments and development use. Free usage of the API and software tools.</span>
-                      </span>
-                    </label>
-                    <label
-                      className="group flex cursor-pointer border border-gray-200 p-4 first:rounded-tl-md first:rounded-tr-md last:rounded-br-md last:rounded-bl-md focus:outline-hidden has-checked:relative has-checked:border-indigo-200 has-checked:bg-indigo-50"
-                    >
-                      <input
-                        type="radio" 
-                        id="mainnet" 
-                        name="cluster" 
-                        value="mainnet"
-                        onChange={handleClusterChange}
-                        checked={cluster === 'mainnet'}
-                        className="relative mt-0.5 size-4 shrink-0 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                      />
-                      <span className="ml-3 flex flex-col">
-                        <span className="block text-sm font-medium text-gray-900 group-has-checked:text-indigo-900">
-                          Mainnet
-                        </span>
-                        <span className="block text-sm text-gray-500 group-has-checked:text-indigo-700">For production use. Usage of the API and software tools requires a subscription to the service.</span>
-                      </span>
-                    </label>
-                  </fieldset>
-                </div>
-
-
-              </div>
-            </div>
-    
 
 
             
