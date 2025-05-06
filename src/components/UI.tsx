@@ -4,7 +4,6 @@ import { Dialog,DialogBackdrop,DialogPanel,Menu,MenuButton,MenuItem,MenuItems,Tr
 import { Bars3Icon,XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import MenuButtonNav from './MenuButtonNav'
-import ConnectWallet from './ConnectWallet'
 import useAuth from '../hooks/useAuth'
 import api from '../functions/api'
 
@@ -65,9 +64,6 @@ const UI : React.FC<Props> = ({children})=>{
                     <li>
                       <MenuButtonNav/>
                     </li>
-                    <li className="mt-auto">
-                      <ConnectWallet/>
-                    </li>
                   </ul>
                 </nav>
               </div>
@@ -90,9 +86,6 @@ const UI : React.FC<Props> = ({children})=>{
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <MenuButtonNav/>
-                </li>
-                <li className="mt-auto">
-                  <ConnectWallet/>
                 </li>
               </ul>
             </nav>
