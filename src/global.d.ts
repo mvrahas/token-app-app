@@ -44,6 +44,7 @@ interface Mint {
     address : string,
     authority : string,
     account : string,
+    tokenUSDValue : number,
     createdAt : Date
 }
 
