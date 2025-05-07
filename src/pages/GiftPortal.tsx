@@ -62,7 +62,7 @@ const GiftPortal = ()=>{
             const processResponse = await axios.post(
                 `${BASE_URL}/gift/tx/process`,
                 {signature},
-                {headers:{'Authorization':`Bearer ${_id}`}}
+                {headers:{'Authorization':`Bearer ${createResponse.data.giftId}`}}
             )
 
             console.log(processResponse)
