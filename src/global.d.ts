@@ -108,5 +108,5 @@ interface PaymentPortalInfo {
     }
     processed : boolean,
     confirmed : boolean,
-    simulation : boolean,
+    sandbox : boolean,
 }

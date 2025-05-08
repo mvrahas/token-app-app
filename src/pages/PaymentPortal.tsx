@@ -43,7 +43,7 @@ const PaymentPortal = ()=>{
 
 
     //make purchase
-    const pay = async (simulation : boolean)=>{
+    const pay = async (sandbox : boolean)=>{
 
         setLoading(true)
         try{
@@ -58,7 +58,7 @@ const PaymentPortal = ()=>{
 
             //get tx signature
             let signature = null
-            if(!simulation){
+            if(!sandbox){
                 const walletResponse = await window.phantom.solana.signAndSendTransaction(transaction)
                 signature = walletResponse.signature
             }
@@ -118,7 +118,7 @@ const PaymentPortal = ()=>{
                     : null
                 }
                 {
-                    info.simulation ? <div className="w-full sm:max-w-82 border-l-4 border-yellow-400 bg-yellow-50 p-4">
+                    info.sandbox ? <div className="w-full sm:max-w-82 border-l-4 border-yellow-400 bg-yellow-50 p-4">
                         <div className="flex">
                             <div className="shrink-0">
                                 <svg className="size-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -127,7 +127,7 @@ const PaymentPortal = ()=>{
                             </div>
                             <div className="ml-3">
                                 <p className="text-sm text-yellow-700">
-                                  Test mode is activated. This portal is for testing purposes only.
+                                  Sandbox mode is activated. This portal is for testing purposes only.
                                 </p>
                             </div>
                         </div>
