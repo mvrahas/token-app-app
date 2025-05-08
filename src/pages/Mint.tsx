@@ -49,8 +49,8 @@ const Mint = ()=>{
             mintId:_id,
             amount
         })
-        .then(r=>setRefresh(refresh+1))
-        .catch(e=>console.log(e))
+        .then(()=>setRefresh(refresh+1))
+        .catch(()=>console.log('error'))
     }
 
     return(

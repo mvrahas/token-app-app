@@ -9,6 +9,7 @@ interface PaymentErrorWidgetProps {
 
 
 const PaymentErrorWidget : React.FC<PaymentErrorWidgetProps> = ({info})=>{
+    console.log(info.returnURL)
     return(
         <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
             <div className="flex flex-col items-center w-full mb-3 p-5 bg-white ring-1 shadow-xs ring-gray-900/5 rounded-xl">
