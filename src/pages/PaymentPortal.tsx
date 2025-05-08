@@ -57,7 +57,7 @@ const PaymentPortal = ()=>{
             const transaction = txConvert(createResponse.data.base64Transaction)
 
             //get tx signature
-            let signature = 'N/A'
+            let signature = null
             if(!simulation){
                 const walletResponse = await window.phantom.solana.signAndSendTransaction(transaction)
                 signature = walletResponse.signature
