@@ -1,20 +1,16 @@
-import React, { useState, useMemo, createContext } from 'react'
+import React, { useEffect, useMemo, createContext } from 'react'
 import { clusterApiUrl } from '@solana/web3.js'
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
-import { PhantomWalletAdapter, SolflareWalletAdapter, CoinbaseWalletAdapter } from '@solana/wallet-adapter-wallets'
+import { SolflareWalletAdapter, CoinbaseWalletAdapter } from '@solana/wallet-adapter-wallets'
 const VITE_SOLANA_CLUSTER = import.meta.env.VITE_SOLANA_CLUSTER
 
 
 const SolanaWalletContext = createContext<SolanaWalletContextType|null>(null)
 
 
-//DELETE LATER
-interface SolanaWalletContextType {
-    publicKey : string|null,
-    connect : ()=>void,
-}
-//^
+interface SolanaWalletContextType {}
+
 
 export const SolanaWalletProvider : React.FC<Props> = ({children})=>{
 
@@ -22,21 +18,12 @@ export const SolanaWalletProvider : React.FC<Props> = ({children})=>{
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
     const wallets = [
-        new PhantomWalletAdapter,
         new SolflareWalletAdapter,
         new CoinbaseWalletAdapter,
     ]
 
-    //DELETE LATER
-    const [publicKey,setPublicKey] = useState(null)
-    const connect = async ()=>{}
-    //^
-
     return(
-        <SolanaWalletContext.Provider value={{
-            publicKey,
-            connect,
-        }}>
+        <SolanaWalletContext.Provider value={{}}>
             <ConnectionProvider endpoint={endpoint}>
                 <WalletProvider wallets={wallets}>
                     {children}

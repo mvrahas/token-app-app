@@ -14,7 +14,6 @@ import AuthResetMessage from './pages/AuthResetMessage'
 import BillingSuccess from './pages/BillingSuccess'
 import BillingSubscriptions from './pages/BillingSubscriptions'
 import BillingPayments from './pages/BillingPayments'
-import Portal from './pages/Portal'
 import GiftPortal from './pages/GiftPortal'
 import PaymentPortal from './pages/PaymentPortal'
 import Test from './pages/Test'
@@ -38,7 +37,6 @@ const App = () => {
         <Route path="/billing/subscriptions" element={<Locked><UI><BillingSubscriptions/></UI></Locked>}/>
         <Route path="/billing/success" element={<Locked><BillingSuccess/></Locked>}/>
         <Route path="/billing/payments" element={<Locked><BillingPayments/></Locked>}/>
-        <Route path="/portal/:_id" element={<Portal/>}/>
         <Route path="/portal/gift/:_id" element={<GiftPortal/>}/>
         <Route path="/portal/payment/:_id" element={<PaymentPortal/>}/>
         <Route path="/test" element={<Test/>}/>

@@ -1,14 +1,3 @@
-interface Window {
-    phantom: {
-        solana: {
-            isConnected : boolean,
-            connect : Function,
-            signTransaction: Function,
-            signAndSendTransaction : Function,
-        }
-    }
-}
-
 interface Props {
     children : React.ReactNode,
 }
