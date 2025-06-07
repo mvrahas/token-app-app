@@ -1,6 +1,6 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 
-const SelectWallet = ()=>{
+const SelectWalletWidget = ()=>{
 
     const { wallets, select } = useWallet()
 
@@ -26,4 +26,4 @@ const SelectWallet = ()=>{
 }
 
 
-export default SelectWallet
+export default SelectWalletWidget

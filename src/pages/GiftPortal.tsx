@@ -2,7 +2,7 @@ import { useState, useEffect, FormEvent, ChangeEvent } from "react"
 import { useParams } from "react-router-dom"
 import { Radio, RadioGroup } from '@headlessui/react'
 import { ChevronUpIcon, ChevronDownIcon } from '../components/ChevronIcons'
-import SelectWallet from "../components/SelectWallet"
+import SelectWalletWidget from "../components/SelectWalletWidget"
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import axios from "axios"
 import { txConvert } from "@numin/web-sdk"
@@ -82,7 +82,7 @@ const GiftPortal = ()=>{
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
 
-            {!wallet ? <SelectWallet/> : info ?
+            {!wallet ? <SelectWalletWidget/> : info ?
             <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
 
 

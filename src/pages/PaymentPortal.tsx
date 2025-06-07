@@ -10,7 +10,7 @@ import PaymentPaymentWidget from "../components/PaymentPaymentWidget"
 import PaymentRedemptionWidget from "../components/PaymentRedemptionWidget"
 import PaymentConfirmationWidget from "../components/PaymentConfirmationWidget"
 import PaymentErrorWidget from "../components/PaymentErrorWidget"
-import SelectWallet from "../components/SelectWallet"
+import SelectWalletWidget from "../components/SelectWalletWidget"
 
 
 const PaymentPortal = ()=>{
@@ -95,7 +95,7 @@ const PaymentPortal = ()=>{
 
             {info ? <>
                 {
-                    !wallet ? <SelectWallet/> :
+                    !wallet ? <SelectWalletWidget/> :
                     activeView === 'payment' ? 
                         <PaymentPaymentWidget 
                             info={info} 

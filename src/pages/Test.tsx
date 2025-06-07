@@ -1,5 +1,5 @@
 import { useWallet } from '@solana/wallet-adapter-react'
-import SelectWallet from '../components/SelectWallet.tsx'
+import SelectWalletWidget from '../components/SelectWalletWidget.tsx'
 
 const Test = ()=>{
 
@@ -11,7 +11,7 @@ const Test = ()=>{
     return(
         <div>
             {
-                wallet ? <p>Has wallet</p> : <SelectWallet/>
+                wallet ? <p>Has wallet</p> : <SelectWalletWidget/>
             }
         </div>
     )
