@@ -1,14 +1,17 @@
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
-import useWallet from "../hooks/useWallet"
+import { useWallet } from '@solana/wallet-adapter-react'
 import { txConvert } from "@numin/web-sdk"
 import axios from "axios"
 export const BASE_URL = import.meta.env.VITE_BASE_URL
+
 
 import PaymentPaymentWidget from "../components/PaymentPaymentWidget"
 import PaymentRedemptionWidget from "../components/PaymentRedemptionWidget"
 import PaymentConfirmationWidget from "../components/PaymentConfirmationWidget"
 import PaymentErrorWidget from "../components/PaymentErrorWidget"
+import SelectWallet from "../components/SelectWallet"
+
 
 const PaymentPortal = ()=>{
 
@@ -18,9 +21,9 @@ const PaymentPortal = ()=>{
     const [loading,setLoading] = useState(false)
     const [processing,setProcessing] = useState(false)
     const [tokenAmount,setTokenAmount] = useState(0)
-    const {publicKey,connect} = useWallet()
+    const {publicKey,connect,connected,select,wallet} = useWallet()
 
-
+    console.log(publicKey)
     //load info
     const [info, setInfo] = useState<PaymentPortalInfo|null>(null)
     const load = async ()=>{
@@ -45,13 +48,16 @@ const PaymentPortal = ()=>{
     //make purchase
     const pay = async (sandbox : boolean)=>{
 
+
         setLoading(true)
         try{
+
+            if(!publicKey){throw Error('Something went wrong!')}
 
             //create tx
             const createResponse = await axios.post(
                 `${BASE_URL}/payment/create`,
-                {wallet:publicKey,amountToken:tokenAmount},
+                {wallet:publicKey.toString(),amountToken:tokenAmount},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
             const transaction = txConvert(createResponse.data.base64Transaction)
@@ -89,10 +95,11 @@ const PaymentPortal = ()=>{
 
             {info ? <>
                 {
+                    !wallet ? <SelectWallet/> :
                     activeView === 'payment' ? 
                         <PaymentPaymentWidget 
                             info={info} 
-                            publicKey={publicKey} 
+                            connected={connected}
                             pay={pay} 
                             connect={connect}
                             setActiveView={setActiveView}
@@ -122,7 +129,7 @@ const PaymentPortal = ()=>{
                         <div className="flex">
                             <div className="shrink-0">
                                 <svg className="size-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                                    <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clipRule="evenodd" />
                                 </svg>
                             </div>
                             <div className="ml-3">
@@ -134,6 +141,8 @@ const PaymentPortal = ()=>{
                     </div>  : null
                 }
             </> : null}
+
+            <button onClick={()=>select(null)}>Test</button>
 
         </div>
     )

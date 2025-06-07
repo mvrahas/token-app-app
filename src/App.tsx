@@ -17,6 +17,7 @@ import BillingPayments from './pages/BillingPayments'
 import Portal from './pages/Portal'
 import GiftPortal from './pages/GiftPortal'
 import PaymentPortal from './pages/PaymentPortal'
+import Test from './pages/Test'
 import UI from './components/UI'
 
 
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/portal/:_id" element={<Portal/>}/>
         <Route path="/portal/gift/:_id" element={<GiftPortal/>}/>
         <Route path="/portal/payment/:_id" element={<PaymentPortal/>}/>
+        <Route path="/test" element={<Test/>}/>
       </Routes>
     </div>
   )

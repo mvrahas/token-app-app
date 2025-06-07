@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import WalletContext from '../context/WalletContext'
+import SolanaWalletContext from '../context/SolanaWalletContext'
 
 const useWallet = ()=>{
-    const context = useContext(WalletContext)
+    const context = useContext(SolanaWalletContext)
     if(!context){
         throw new Error("Must be used within a provider")
     }
