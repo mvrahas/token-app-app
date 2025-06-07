@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { txConvert } from "@numin/web-sdk"
 import axios from "axios"
 export const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -21,9 +21,10 @@ const PaymentPortal = ()=>{
     const [loading,setLoading] = useState(false)
     const [processing,setProcessing] = useState(false)
     const [tokenAmount,setTokenAmount] = useState(0)
-    const {publicKey,connect,connected,select,wallet} = useWallet()
+    const {publicKey,connect,connected,select,wallet,sendTransaction} = useWallet()
+    const { connection } = useConnection()
 
-    console.log(publicKey)
+
     //load info
     const [info, setInfo] = useState<PaymentPortalInfo|null>(null)
     const load = async ()=>{
@@ -65,8 +66,7 @@ const PaymentPortal = ()=>{
             //get tx signature
             let signature = null
             if(!sandbox){
-                const walletResponse = await window.phantom.solana.signAndSendTransaction(transaction)
-                signature = walletResponse.signature
+                signature = await sendTransaction(transaction,connection)
             }
 
             //confirm tx
