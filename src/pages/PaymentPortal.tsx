@@ -21,7 +21,7 @@ const PaymentPortal = ()=>{
     const [loading,setLoading] = useState(false)
     const [processing,setProcessing] = useState(false)
     const [tokenAmount,setTokenAmount] = useState(0)
-    const {publicKey,connect,connected,select,wallet,sendTransaction} = useWallet()
+    const {publicKey,connect,connected,wallet,sendTransaction} = useWallet()
     const { connection } = useConnection()
 
 

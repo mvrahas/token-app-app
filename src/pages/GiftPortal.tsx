@@ -14,7 +14,7 @@ const GiftPortal = ()=>{
     
 
     const {_id} = useParams()
-    const {publicKey,connect,connected,select,wallet,sendTransaction} = useWallet()
+    const {publicKey,connect,connected,wallet,sendTransaction} = useWallet()
     const { connection } = useConnection()
     const priceOptions = [5,10,20,50,100]
 
