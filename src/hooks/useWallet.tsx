@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import SolanaWalletContext from '../context/SolanaWalletContext'
+import SolanaWalletContext from '../components/SolanaWalletAdapter'
 
 const useWallet = ()=>{
     const context = useContext(SolanaWalletContext)
