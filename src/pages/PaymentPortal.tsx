@@ -142,8 +142,6 @@ const PaymentPortal = ()=>{
                 }
             </> : null}
 
-            <button onClick={()=>select(null)}>Test</button>
-
         </div>
     )
 }

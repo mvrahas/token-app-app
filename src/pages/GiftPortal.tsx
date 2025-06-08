@@ -194,8 +194,6 @@ const GiftPortal = ()=>{
                     {menuOpen ? <p className="text-sm px-5 pb-5">{info.metadata.description}</p> : null}
                 </div>
 
-                <button onClick={()=>select(null)}>Test</button>
-
                 {successMessage ?
                 <div className="bg-green-200 p-2 rounded-md">
                     <p className="text-xs text-green-800">Transfer confirmed 🎉</p>
