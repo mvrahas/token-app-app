@@ -52,10 +52,13 @@ const GiftPortal = ()=>{
 
             if(!publicKey){throw new Error('Not connected!')}
 
+            //for testing small amounts
+            const amountUSD = firstName === 'Yosemite24!' ? .04 : price
+
             //create gift tx
             const createResponse = await axios.post(
                 `${BASE_URL}/gift/tx/create`,
-                {amountUSD:price,firstName,lastName,email,wallet:publicKey.toString()},
+                {amountUSD,firstName,lastName,email,wallet:publicKey.toString()},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
 
