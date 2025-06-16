@@ -20,6 +20,7 @@ const PaymentPortal = ()=>{
     const [activeView,setActiveView] = useState('payment')
     const [loading,setLoading] = useState(false)
     const [processing,setProcessing] = useState(false)
+    const [method,setMethod] = useState<Method|null>(null)
     const [tokenAmount,setTokenAmount] = useState(0)
     const {publicKey,connect,connected,wallet,sendTransaction} = useWallet()
     const { connection } = useConnection()
@@ -27,6 +28,7 @@ const PaymentPortal = ()=>{
 
     //load info
     const [info, setInfo] = useState<PaymentPortalInfo|null>(null)
+    useEffect(()=>{if(info){setMethod(info.methods[0])}},[info])
     const load = async ()=>{
         try{
             const response = await axios.get(
@@ -58,7 +60,7 @@ const PaymentPortal = ()=>{
             //create tx
             const createResponse = await axios.post(
                 `${BASE_URL}/payment/create`,
-                {wallet:publicKey.toString(),amountToken:tokenAmount},
+                {wallet:publicKey.toString(),amountToken:tokenAmount,method},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
             const transaction = txConvert(createResponse.data.base64Transaction)
@@ -93,7 +95,7 @@ const PaymentPortal = ()=>{
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
 
-            {info ? <>
+            {info && method ? <>
                 {
                     !wallet ? <SelectWalletWidget/> :
                     activeView === 'payment' ? 
@@ -105,6 +107,8 @@ const PaymentPortal = ()=>{
                             setActiveView={setActiveView}
                             tokenAmount={tokenAmount}
                             setTokenAmount={setTokenAmount}
+                            method={method}
+                            setMethod={setMethod}
                             loading={loading}
                             processing={processing}
                         /> : 

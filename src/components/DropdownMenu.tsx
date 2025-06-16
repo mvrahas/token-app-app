@@ -1,14 +1,16 @@
-import { useState } from 'react'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronUpDownIcon } from '@heroicons/react/16/solid'
 import { CheckIcon } from '@heroicons/react/20/solid'
 
-const items = [
-  { id: 1, name: 'USD Coin', img:'/token-icon-usdc.png', symbol:'USDC' },
-]
 
-const DropdownMenu = () => {
-  const [selected, setSelected] = useState(items[0])
+interface DropdownMenuProps {
+    items : Method[],
+    selected : Method,
+    setSelected : (input: Method) => void
+}
+
+
+const DropdownMenu : React.FC<DropdownMenuProps> = ({items, selected, setSelected}) => {
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -22,7 +24,7 @@ const DropdownMenu = () => {
             </div>
             <div className='flex flex-row items-center'>
               <span className='text-xs text-gray-400 mr-2'>{selected.symbol}</span>
-              <img className="h-8 w-8 rounded-full" src={selected.img}/>
+              <img className="h-8 w-8 rounded-full" src={`/icons/${selected.symbol}.png`}/>
             </div>
         </ListboxButton>
 
@@ -32,7 +34,7 @@ const DropdownMenu = () => {
         >
           {items.map((item) => (
             <ListboxOption
-              key={item.id}
+              key={item.address}
               value={item}
               className="group relative cursor-default py-2 pr-4 pl-8 text-gray-900 select-none data-focus:bg-indigo-600 data-focus:text-white data-focus:outline-hidden"
             >

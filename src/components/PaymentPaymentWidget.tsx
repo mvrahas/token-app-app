@@ -11,12 +11,14 @@ interface PaymentPaymentWidgetProps {
     setActiveView : Function,
     tokenAmount : number,
     setTokenAmount : Function,
+    method : Method,
+    setMethod : (input: Method) => void,
     loading : boolean,
     processing : boolean,
 }
 
 
-const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,connected,pay,connect,setActiveView,tokenAmount,setTokenAmount,loading,processing})=>{
+const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,connected,pay,connect,setActiveView,tokenAmount,setTokenAmount,method,setMethod,loading,processing})=>{
 
     return(
         <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
@@ -34,7 +36,7 @@ const PaymentPaymentWidget : React.FC<PaymentPaymentWidgetProps> = ({info,connec
 
 
                             <div className="w-full mb-2">
-                                <DropdownMenu/>
+                                <DropdownMenu items={info.methods} selected={method} setSelected={setMethod}/>
                             </div>
 
 
