@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
-import { txConvert } from "@numin/web-sdk"
+import { VersionedTransaction } from "@solana/web3.js"
 import axios from "axios"
 export const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -63,12 +63,16 @@ const PaymentPortal = ()=>{
                 {wallet:publicKey.toString(),amountToken:tokenAmount,method},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
-            const transaction = txConvert(createResponse.data.base64Transaction)
+
+            //deserialize tx
+            const tx = VersionedTransaction.deserialize(
+                Buffer.from(createResponse.data.base64Transaction, 'base64')
+            )
 
             //get tx signature
             let signature = null
             if(!sandbox){
-                signature = await sendTransaction(transaction,connection)
+                signature = await sendTransaction(tx,connection)
             }
 
             //confirm tx
