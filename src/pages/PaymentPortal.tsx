@@ -1,14 +1,17 @@
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
-import useWallet from "../hooks/useWallet"
-import { txConvert } from "@numin/web-sdk"
+import { useWallet, useConnection } from '@solana/wallet-adapter-react'
+import { VersionedTransaction } from "@solana/web3.js"
 import axios from "axios"
 export const BASE_URL = import.meta.env.VITE_BASE_URL
+
 
 import PaymentPaymentWidget from "../components/PaymentPaymentWidget"
 import PaymentRedemptionWidget from "../components/PaymentRedemptionWidget"
 import PaymentConfirmationWidget from "../components/PaymentConfirmationWidget"
 import PaymentErrorWidget from "../components/PaymentErrorWidget"
+import SelectWalletWidget from "../components/SelectWalletWidget"
+
 
 const PaymentPortal = ()=>{
 
@@ -17,12 +20,15 @@ const PaymentPortal = ()=>{
     const [activeView,setActiveView] = useState('payment')
     const [loading,setLoading] = useState(false)
     const [processing,setProcessing] = useState(false)
+    const [method,setMethod] = useState<Method|null>(null)
     const [tokenAmount,setTokenAmount] = useState(0)
-    const {publicKey,connect} = useWallet()
+    const {publicKey,connect,connected,wallet,sendTransaction} = useWallet()
+    const { connection } = useConnection()
 
 
     //load info
     const [info, setInfo] = useState<PaymentPortalInfo|null>(null)
+    useEffect(()=>{if(info){setMethod(info.methods[0])}},[info])
     const load = async ()=>{
         try{
             const response = await axios.get(
@@ -45,22 +51,28 @@ const PaymentPortal = ()=>{
     //make purchase
     const pay = async (sandbox : boolean)=>{
 
+
         setLoading(true)
         try{
+
+            if(!publicKey){throw Error('Something went wrong!')}
 
             //create tx
             const createResponse = await axios.post(
                 `${BASE_URL}/payment/create`,
-                {wallet:publicKey,amountToken:tokenAmount},
+                {wallet:publicKey.toString(),amountToken:tokenAmount,method},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
-            const transaction = txConvert(createResponse.data.base64Transaction)
+
+            //deserialize tx
+            const tx = VersionedTransaction.deserialize(
+                Buffer.from(createResponse.data.base64Transaction, 'base64')
+            )
 
             //get tx signature
             let signature = null
             if(!sandbox){
-                const walletResponse = await window.phantom.solana.signAndSendTransaction(transaction)
-                signature = walletResponse.signature
+                signature = await sendTransaction(tx,connection)
             }
 
             //confirm tx
@@ -87,17 +99,20 @@ const PaymentPortal = ()=>{
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
 
-            {info ? <>
+            {info && method ? <>
                 {
+                    !wallet ? <SelectWalletWidget/> :
                     activeView === 'payment' ? 
                         <PaymentPaymentWidget 
                             info={info} 
-                            publicKey={publicKey} 
+                            connected={connected}
                             pay={pay} 
                             connect={connect}
                             setActiveView={setActiveView}
                             tokenAmount={tokenAmount}
                             setTokenAmount={setTokenAmount}
+                            method={method}
+                            setMethod={setMethod}
                             loading={loading}
                             processing={processing}
                         /> : 
@@ -122,7 +137,7 @@ const PaymentPortal = ()=>{
                         <div className="flex">
                             <div className="shrink-0">
                                 <svg className="size-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+                                    <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clipRule="evenodd" />
                                 </svg>
                             </div>
                             <div className="ml-3">

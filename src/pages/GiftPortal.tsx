@@ -2,17 +2,20 @@ import { useState, useEffect, FormEvent, ChangeEvent } from "react"
 import { useParams } from "react-router-dom"
 import { Radio, RadioGroup } from '@headlessui/react'
 import { ChevronUpIcon, ChevronDownIcon } from '../components/ChevronIcons'
-import useWallet from "../hooks/useWallet"
+import SelectWalletWidget from "../components/SelectWalletWidget"
+import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import axios from "axios"
-import { txConvert } from "@numin/web-sdk"
+import { VersionedTransaction } from "@solana/web3.js"
 import { BASE_URL } from "../functions/api"
+
 
 
 const GiftPortal = ()=>{
     
 
     const {_id} = useParams()
-    const {publicKey,connect} = useWallet()
+    const {publicKey,connect,connected,wallet,sendTransaction} = useWallet()
+    const { connection } = useConnection()
     const priceOptions = [5,10,20,50,100]
 
     const [price, setPrice] = useState(priceOptions[0])
@@ -47,16 +50,23 @@ const GiftPortal = ()=>{
 
         try{
 
+            if(!publicKey){throw new Error('Not connected!')}
+
+            //for testing small amounts
+            const amountUSD = firstName === 'Yosemite24!' ? .04 : price
+
             //create gift tx
             const createResponse = await axios.post(
                 `${BASE_URL}/gift/tx/create`,
-                {amountUSD:price,firstName,lastName,email,wallet:publicKey},
+                {amountUSD,firstName,lastName,email,wallet:publicKey.toString()},
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
 
             //deserialize and send transaction
-            const transaction = txConvert(createResponse.data.base64Transaction)
-            const {signature} = await window.phantom.solana.signAndSendTransaction(transaction)
+            const tx = VersionedTransaction.deserialize(
+                Buffer.from(createResponse.data.base64Transaction, 'base64')
+            )
+            const signature = await sendTransaction(tx,connection)
 
             //process gift tx
             const processResponse = await axios.post(
@@ -66,6 +76,7 @@ const GiftPortal = ()=>{
             )
 
             console.log(processResponse)
+
             setSuccessMessage(true)
 
         }catch(e){
@@ -76,7 +87,8 @@ const GiftPortal = ()=>{
     
     return(
         <div className="flex flex-col items-center h-screen bg-gray-50">
-            {info ?
+
+            {!wallet ? <SelectWalletWidget/> : info ?
             <div className="flex flex-col items-center w-full sm:max-w-82 mt-3 sm:mt-12">
 
 
@@ -153,7 +165,7 @@ const GiftPortal = ()=>{
                             </div>
                         </div>
 
-                        {publicKey ?
+                        {connected ?
                         <div className="w-full mt-3">
                             <button 
                                 type="submit" 
@@ -166,7 +178,7 @@ const GiftPortal = ()=>{
 
                     </form>
                     
-                    {!publicKey ?
+                    {!connected ?
                     <div className="w-full mt-3">
                         <button 
                             onClick={connect}
@@ -187,7 +199,6 @@ const GiftPortal = ()=>{
                     </button>
                     {menuOpen ? <p className="text-sm px-5 pb-5">{info.metadata.description}</p> : null}
                 </div>
-
 
                 {successMessage ?
                 <div className="bg-green-200 p-2 rounded-md">

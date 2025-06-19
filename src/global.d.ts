@@ -1,14 +1,3 @@
-interface Window {
-    phantom: {
-        solana: {
-            isConnected : boolean,
-            connect : Function,
-            signTransaction: Function,
-            signAndSendTransaction : Function,
-        }
-    }
-}
-
 interface Props {
     children : React.ReactNode,
 }
@@ -93,6 +82,12 @@ interface GiftPortalInfo {
     tokenUSDValue : number,
 }
 
+interface Method {
+    name : string,
+    symbol : string,
+    address : string,
+}
+
 interface PaymentPortalInfo {
     name : string,
     amountUSD : number,
@@ -106,7 +101,9 @@ interface PaymentPortalInfo {
         },
         tokenUSDValue : number
     }
+    methods : Method[], 
     processed : boolean,
     confirmed : boolean,
     sandbox : boolean,
 }
+
