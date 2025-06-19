@@ -5,7 +5,7 @@ import { ChevronUpIcon, ChevronDownIcon } from '../components/ChevronIcons'
 import SelectWalletWidget from "../components/SelectWalletWidget"
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import axios from "axios"
-import { txConvert } from "@numin/web-sdk"
+import { VersionedTransaction } from "@solana/web3.js"
 import { BASE_URL } from "../functions/api"
 
 
@@ -63,8 +63,10 @@ const GiftPortal = ()=>{
             )
 
             //deserialize and send transaction
-            const transaction = txConvert(createResponse.data.base64Transaction)
-            const signature = await sendTransaction(transaction,connection)
+            const tx = VersionedTransaction.deserialize(
+                Buffer.from(createResponse.data.base64Transaction, 'base64')
+            )
+            const signature = await sendTransaction(tx,connection)
 
             //process gift tx
             const processResponse = await axios.post(
@@ -73,7 +75,6 @@ const GiftPortal = ()=>{
                 {headers:{'Authorization':`Bearer ${createResponse.data.giftId}`}}
             )
 
-            console.log(processResponse)
             setSuccessMessage(true)
 
         }catch(e){
