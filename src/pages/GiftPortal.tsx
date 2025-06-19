@@ -75,6 +75,8 @@ const GiftPortal = ()=>{
                 {headers:{'Authorization':`Bearer ${createResponse.data.giftId}`}}
             )
 
+            console.log(processResponse)
+
             setSuccessMessage(true)
 
         }catch(e){
