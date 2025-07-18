@@ -1,12 +1,10 @@
 import React, {useState,ChangeEvent,FormEvent} from 'react'
 import api from '../functions/api'
-import {useNavigate} from 'react-router-dom'
 
 
 const TransferSend = ()=>{
 
 
-    const navigate = useNavigate()
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState('')
     const [signature,setSignature] = useState('')
