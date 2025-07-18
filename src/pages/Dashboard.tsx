@@ -1,13 +1,9 @@
 import { useState,useEffect } from "react"
-import { useNavigate } from 'react-router-dom'
 import api from "../functions/api"
 import GridCard from '../components/GridCard'
-import InputButton from '../components/InputButton'
+
 
 const Dashboard = ()=>{
-
-    //navigate
-    const navigate = useNavigate()
 
     //get account balance
     const [balance,setBalance] = useState(null)
@@ -17,7 +13,6 @@ const Dashboard = ()=>{
         .catch(e=>console.log(e))
     }
     useEffect(getBalance,[])
-
 
     return(
         <>
