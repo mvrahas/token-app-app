@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useLocation } from 'react-router-dom'
-import { HomeIcon, WrenchIcon, GiftIcon, PaperAirplaneIcon, LinkIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, GiftIcon, PaperAirplaneIcon, LinkIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 
 const MenuButtonNav = ()=>{

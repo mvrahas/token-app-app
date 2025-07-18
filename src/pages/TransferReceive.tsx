@@ -1,14 +1,14 @@
 import React, {useState,ChangeEvent,FormEvent} from 'react'
 import api from '../functions/api'
-import {useNavigate} from 'react-router-dom'
+import CopyButton from '../components/CopyButton'
 
 
 const TransferReceive = ()=>{
 
 
-    const navigate = useNavigate()
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState('')
+    const [link,setLink] = useState(null)
 
 
     const [amount,setAmount] = useState(0)
@@ -22,13 +22,14 @@ const TransferReceive = ()=>{
         try{
 
           //api call to create mint
-          await api.post('/mint',{})
+          const {data} = await api.post('/transaction/receive',{amountUSD:amount,memo})
             
           //ok->
-          navigate(`/mint`)
+          setLink(data.portalURL)
 
-        }catch(e){
-          setError('Oops! Something went wrong. Please try again.')
+        }catch(e:any){
+            if(e.response.data.error){setError(e.response.data.error)}
+            else{setError('Oops! Something went wrong!')}
         }
         setLoading(false)
     }
@@ -106,14 +107,22 @@ const TransferReceive = ()=>{
     
 
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
-            >
-              {loading ? 'Loading...' : 'Receive'}
-            </button>
-          </div>
+            {link ? 
+                <div className='mt-6'>
+                    <CopyButton value={link}/>
+                </div>
+            : 
+                <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <button
+                      type="submit"
+                      className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                    >
+                      {loading ? 'Loading...' : 'Receive'}
+                    </button>
+                </div>
+            }
+
+          
           {error ? <p className="mt-6 flex items-center justify-end gap-x-6 text-red-400">{error}</p> : null}
 
 
