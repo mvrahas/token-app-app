@@ -13,6 +13,9 @@ interface Organization {
         customerId:string,
         isSubscribed:boolean,
     }
+    wallet:{
+        publicKey:string
+    }
 }
 
 interface Key {

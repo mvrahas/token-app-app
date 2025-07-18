@@ -19,7 +19,7 @@ const MenuButtonNav = ()=>{
 
     return(
         <>
-            <ul role="list" className="-mx-2 space-y-1">
+            <ul role="list" className="space-y-1">
             {items.map((item) => (
                 <li key={item.name}>
                     <Link
