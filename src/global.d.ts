@@ -91,7 +91,7 @@ interface Method {
 interface PaymentPortalInfo {
     name : string,
     amountUSD : number,
-    returnURL : string,
+    returnURL : string|null,
     token : {
         metadata : {
             name : string,
