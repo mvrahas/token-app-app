@@ -2,6 +2,8 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Locked from './components/Locked'
 import Dashboard from './pages/Dashboard'
+import TransferSend from './pages/TransferSend'
+import TransferReceive from './pages/TransferReceive'
 import Mint from './pages/Mint'
 import Mints from './pages/Mints'
 import Settings from './pages/Settings'
@@ -30,10 +32,12 @@ const App = () => {
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
         <Route path="/" element={<Locked><UI><Dashboard/></UI></Locked>}/>
-        <Route path="/tokens" element={<Locked><UI><Mints/></UI></Locked>}/>
+        <Route path="/send" element={<Locked><UI><TransferSend/></UI></Locked>}/>
+        <Route path="/receive" element={<Locked><UI><TransferReceive/></UI></Locked>}/>
+        <Route path="/mint" element={<Locked><UI><Mints/></UI></Locked>}/>
         <Route path="/settings" element={<Locked><UI><Settings/></UI></Locked>}/>
-        <Route path="/tokens/mint/create" element={<Locked><UI><CreateMint/></UI></Locked>}/>
-        <Route path="/tokens/mint/:_id" element={<Locked><UI><Mint/></UI></Locked>}/>
+        <Route path="/mint/create" element={<Locked><UI><CreateMint/></UI></Locked>}/>
+        <Route path="/mint/manage/:_id" element={<Locked><UI><Mint/></UI></Locked>}/>
         <Route path="/billing/subscriptions" element={<Locked><UI><BillingSubscriptions/></UI></Locked>}/>
         <Route path="/billing/success" element={<Locked><BillingSuccess/></Locked>}/>
         <Route path="/billing/payments" element={<Locked><BillingPayments/></Locked>}/>
