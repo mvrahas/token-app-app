@@ -32,7 +32,7 @@ const PaymentPortal = ()=>{
     const load = async ()=>{
         try{
             const response = await axios.get(
-                `${BASE_URL}/payment`,
+                `${BASE_URL}/payment/metadata`,
                 {headers:{'Authorization':`Bearer ${_id}`}}
             )
             setInfo(response.data)
