@@ -9,6 +9,7 @@ import Mints from './pages/Mints'
 import Settings from './pages/Settings'
 import CreateMint from './pages/CreateMint'
 import AuthLogin from './pages/AuthLogin'
+import AuthRegister from './pages/AuthRegister'
 import CompleteSetup from './pages/CompleteSetup'
 import AuthChange from './pages/AuthChange'
 import AuthReset from './pages/AuthReset'
@@ -26,6 +27,7 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/auth/login" element={<AuthLogin/>}/>
+        <Route path="/auth/register" element={<AuthRegister/>}/>
         <Route path="/setup" element={<CompleteSetup/>}/>
         <Route path="/auth/reset" element={<AuthReset/>}/>
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
