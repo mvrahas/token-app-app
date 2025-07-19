@@ -53,7 +53,7 @@ const CreateMint = ()=>{
           })
             
           //ok->
-          navigate(`/tokens`)
+          navigate(`/mint`)
 
         }catch(e){
           console.log(e)
@@ -244,7 +244,7 @@ const CreateMint = ()=>{
 
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link to={'/tokens'} className="text-sm/6 font-semibold text-gray-900">
+            <Link to={'/mint'} className="text-sm/6 font-semibold text-gray-900">
               Cancel
             </Link>
             <button

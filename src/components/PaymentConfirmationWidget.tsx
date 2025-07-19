@@ -24,20 +24,25 @@ const PaymentConfirmationWidget : React.FC<PaymentConfirmationWidgetProps> = ({i
                         <div className="mt-3 text-center sm:mt-5">
                             <h3 className="text-base font-semibold text-gray-900" id="modal-title">Payment successful</h3>
                             <div className="mt-2 mb-3">
-                                <p className="text-sm text-gray-500">Follow the link below to go back to the original website.</p>
+                                {info.returnURL ? 
+                                    <p className="text-sm text-gray-500">Follow the link below to go back to the original website.</p> 
+                                    : 
+                                    <p className="text-sm text-gray-500">We have successfully received your payment. Thank you!</p>
+                                }
                             </div>
                         </div>
                     </div>
 
-
+                    {info.returnURL ?
                     <div className="w-full mt-2">
                         <button 
-                            onClick={()=>window.location.href=info.returnURL}
+                            onClick={()=>{if(info.returnURL){window.location.href=info.returnURL}}}
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                         >
                             Back to website
                         </button>
                     </div>
+                    : null}
 
 
 

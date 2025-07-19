@@ -13,6 +13,9 @@ interface Organization {
         customerId:string,
         isSubscribed:boolean,
     }
+    wallet:{
+        publicKey:string
+    }
 }
 
 interface Key {
@@ -91,7 +94,7 @@ interface Method {
 interface PaymentPortalInfo {
     name : string,
     amountUSD : number,
-    returnURL : string,
+    returnURL : string|null,
     token : {
         metadata : {
             name : string,

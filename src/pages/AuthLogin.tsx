@@ -144,9 +144,9 @@ function AuthLogin() {
 
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             Need an account?{' '}
-            <a href="https://numin.xyz" className="font-semibold text-indigo-600 hover:text-indigo-500">
-              Get in touch
-            </a>
+            <Link to="/auth/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
+              Sign up here
+            </Link>
           </p>
         </div>
       </div>

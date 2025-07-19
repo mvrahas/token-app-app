@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useLocation } from 'react-router-dom'
-import { HomeIcon, WrenchIcon, GiftIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, GiftIcon, PaperAirplaneIcon, LinkIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 
 const MenuButtonNav = ()=>{
@@ -9,8 +9,10 @@ const MenuButtonNav = ()=>{
 
     const items = [
         { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-        { name: 'Tokens', href: '/tokens', icon: GiftIcon, current: false },
-        { name: 'Settings', href: '/settings', icon: WrenchIcon, current: false },
+        { name: 'Send', href: '/send', icon: PaperAirplaneIcon, current: false },
+        { name: 'Receive', href: '/receive', icon: LinkIcon, current: false },
+        { name: 'Mint', href: '/mint', icon: GiftIcon, current: false },
+        { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: false },
     ]
 
     function classNames(classes:string[]) {
@@ -19,7 +21,7 @@ const MenuButtonNav = ()=>{
 
     return(
         <>
-            <ul role="list" className="-mx-2 space-y-1">
+            <ul role="list" className="space-y-1">
             {items.map((item) => (
                 <li key={item.name}>
                     <Link
