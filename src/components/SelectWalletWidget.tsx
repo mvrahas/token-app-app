@@ -10,19 +10,21 @@ const SelectWalletWidget = ()=>{
                 <p className='font-medium my-2'>Select a wallet to continue</p>
                 <ul className='w-full'>
                     {
-                        wallets.map(
-                            (wallet,i)=><li className="mt-4" key={i}>
-                                <button className='flex flex-row w-full items-center justify-between cursor-pointer' onClick={async ()=>{
-                                    select(wallet.adapter.name)
-                                }}>
+                        wallets.map((wallet,i)=><>
+                            {wallet.adapter.name === 'Phantom' ? <></> :
+                                <li className="mt-4" key={i}>
+                                    <button className='flex flex-row w-full items-center justify-between cursor-pointer' onClick={async ()=>{
+                                        select(wallet.adapter.name)
+                                    }}>
                                     <div className='flex flex-row items-center'>
                                         <img className='w-10 h-10 rounded-full' src={wallet.adapter.icon}></img>
                                         <span className='ml-3'>{wallet.adapter.name}</span>
                                     </div>
-                                    {wallet.adapter.name === 'Phantom' ? <span className='text-xs text-gray-400'>Recommended</span> : null}
-                                </button>
-                            </li>
-                        )
+                                    {wallet.adapter.name === 'Solflare' ? <span className='text-xs text-gray-400'>Recommended</span> : null}
+                                    </button>
+                                </li>
+                            }
+                        </>)
                     }
                 </ul>
             </div>
