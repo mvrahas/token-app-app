@@ -19,7 +19,7 @@ const Locked : React.FC<Props> = ({children}) => {
   }
 
   if (!organization?.wallet){
-    return <Navigate to="/wallet"/>
+    return <Navigate to="/setup/wallet"/>
   }
 
   return <>

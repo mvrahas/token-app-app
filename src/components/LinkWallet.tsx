@@ -30,11 +30,10 @@ function LinkWallet() {
 
 
   return (
-    <div className='flex justify-center items-center h-screen bg-gray-50'>
-        <form onSubmit={update} className="bg-white ring-1 shadow-xs ring-gray-900/5 sm:rounded-xl md:col-span-2">
+        <form onSubmit={update} className="bg-white sm:max-w-md ring-1 shadow-xs ring-gray-900/5 sm:rounded-xl md:col-span-2">
           <div className="px-4 py-6 sm:p-8">
 
-            <div className='mb-4 sm:max-w-md'>
+            <div className='mb-4'>
                 <div className='flex flex-row items-top justify-between'>
                     <h1 className='mb-2 text-lg font-semibold'>Link your wallet</h1>
                     <LinkIcon className='size-6 text-gray-500'/>
@@ -69,7 +68,6 @@ function LinkWallet() {
             </button>
           </div>
         </form>
-    </div>
     )
 
 }
