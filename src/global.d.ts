@@ -23,6 +23,16 @@ interface Key {
     createdAt : Date,
 }
 
+interface Transaction {
+    _id : string,
+    amountUSDC : number,
+    amountUSDCFee : number,
+    signature : string,
+    confirmed : boolean,
+    processedAt : Date,
+    createdAt : Date,
+}
+
 interface Mint {
     _id : string,
     metadata : {
