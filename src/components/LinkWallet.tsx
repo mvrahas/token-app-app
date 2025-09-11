@@ -35,10 +35,10 @@ function LinkWallet() {
 
             <div className='mb-4'>
                 <div className='flex flex-row items-top justify-between'>
-                    <h1 className='mb-2 text-lg font-semibold'>Link your wallet</h1>
+                    <h1 className='mb-2 text-md font-semibold'>Link your wallet</h1>
                     <LinkIcon className='size-6 text-gray-500'/>
                 </div>
-                <p>Enter the address of the Solana wallet where you would like to receive payments from your customers.</p>
+                <p className='text-sm'>Enter the address of the Solana wallet where you would like to receive payments from your customers.</p>
             </div>
 
             <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
