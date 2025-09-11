@@ -7,10 +7,13 @@ import TransferReceive from './pages/TransferReceive'
 import Mint from './pages/Mint'
 import Mints from './pages/Mints'
 import Settings from './pages/Settings'
+import SettingsLinkWallet from './pages/SettingsLinkWallet'
+import APIKeys from './pages/APIKeys'
 import CreateMint from './pages/CreateMint'
 import AuthLogin from './pages/AuthLogin'
 import AuthRegister from './pages/AuthRegister'
 import CompleteSetup from './pages/CompleteSetup'
+import CompleteSetupLinkWallet from './pages/CompleteSetupLinkWallet'
 import AuthChange from './pages/AuthChange'
 import AuthReset from './pages/AuthReset'
 import AuthResetMessage from './pages/AuthResetMessage'
@@ -29,14 +32,17 @@ const App = () => {
         <Route path="/auth/login" element={<AuthLogin/>}/>
         <Route path="/auth/register" element={<AuthRegister/>}/>
         <Route path="/setup" element={<CompleteSetup/>}/>
+        <Route path="/setup/wallet" element={<CompleteSetupLinkWallet/>}/>
         <Route path="/auth/reset" element={<AuthReset/>}/>
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
         <Route path="/" element={<Locked><UI><Dashboard/></UI></Locked>}/>
         <Route path="/send" element={<Locked><UI><TransferSend/></UI></Locked>}/>
-        <Route path="/receive" element={<Locked><UI><TransferReceive/></UI></Locked>}/>
+        <Route path="/links" element={<Locked><UI><TransferReceive/></UI></Locked>}/>
         <Route path="/mint" element={<Locked><UI><Mints/></UI></Locked>}/>
         <Route path="/settings" element={<Locked><UI><Settings/></UI></Locked>}/>
+        <Route path="/settings/wallet" element={<Locked><UI><SettingsLinkWallet/></UI></Locked>}/>
+        <Route path="/settings/keys" element={<Locked><UI><APIKeys/></UI></Locked>}/>
         <Route path="/mint/create" element={<Locked><UI><CreateMint/></UI></Locked>}/>
         <Route path="/mint/manage/:_id" element={<Locked><UI><Mint/></UI></Locked>}/>
         <Route path="/billing/subscriptions" element={<Locked><UI><BillingSubscriptions/></UI></Locked>}/>

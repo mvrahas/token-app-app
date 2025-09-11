@@ -13,15 +13,23 @@ interface Organization {
         customerId:string,
         isSubscribed:boolean,
     }
-    wallet:{
-        publicKey:string
-    }
+    wallet:string
 }
 
 interface Key {
     _id : string,
     name : string,
     expired : boolean,
+    createdAt : Date,
+}
+
+interface Transaction {
+    _id : string,
+    amountUSDC : number,
+    amountUSDCFee : number,
+    signature : string,
+    confirmed : boolean,
+    processedAt : Date,
     createdAt : Date,
 }
 

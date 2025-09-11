@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useLocation } from 'react-router-dom'
-import { HomeIcon, GiftIcon, PaperAirplaneIcon, LinkIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, LinkIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 
 const MenuButtonNav = ()=>{
@@ -9,9 +9,7 @@ const MenuButtonNav = ()=>{
 
     const items = [
         { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-        { name: 'Send', href: '/send', icon: PaperAirplaneIcon, current: false },
-        { name: 'Receive', href: '/receive', icon: LinkIcon, current: false },
-        { name: 'Mint', href: '/mint', icon: GiftIcon, current: false },
+        { name: 'Links', href: '/links', icon: LinkIcon, current: false },
         { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: false },
     ]
 
