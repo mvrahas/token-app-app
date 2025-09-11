@@ -18,15 +18,6 @@ const UI : React.FC<Props> = ({children})=>{
   const [copied, setCopied] = useState(false)
 
 
-  const copy = ()=>{
-    if(organization){
-        navigator.clipboard.writeText(organization.wallet.publicKey)
-        setCopied(true)
-        setTimeout(()=>{setCopied(false)},2000)
-    }
-  }
-
-
   const navigate = useNavigate()
   const logout = async ()=>{
     try{
@@ -76,12 +67,6 @@ const UI : React.FC<Props> = ({children})=>{
                     </li>
                   </ul>
                 </nav>
-                {organization ?
-                <button onClick={copy} className='flex flex-row items-center justify-between mb-2 p-4 rounded-lg bg-gray-800 hover:bg-gray-700 cursor-pointer'>
-                  <span className='truncate text-xs text-white'>{organization.wallet.publicKey}</span>
-                  {copied ? <span className='ml-2 text-xs text-gray-400'>Copied!</span> : <div><ClipboardIcon className="size-3 text-gray-400"/></div>}
-                </button>
-                : null}
               </div>
             </DialogPanel>
           </div>
@@ -105,12 +90,6 @@ const UI : React.FC<Props> = ({children})=>{
                 </li>
               </ul>
             </nav>
-            {organization ?
-              <button onClick={copy} className='flex flex-row items-center justify-between mb-2 p-4 rounded-lg bg-gray-800 hover:bg-gray-700 cursor-pointer'>
-                <span className='truncate text-xs text-white'>{organization.wallet.publicKey}</span>
-                {copied ? <span className='ml-2 text-xs text-gray-400'>Copied!</span> : <div><ClipboardIcon className="size-3 text-gray-400"/></div>}
-              </button>
-            : null}
           </div>
         </div>
 
