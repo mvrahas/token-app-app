@@ -8,7 +8,7 @@ interface Props {
 
 const Locked : React.FC<Props> = ({children}) => {
 
-  const {user,isAuthenticated} = useAuth()
+  const {user,organization,isAuthenticated} = useAuth()
 
   if (!isAuthenticated) {
     return <Navigate to="/auth/login"/>
@@ -16,6 +16,10 @@ const Locked : React.FC<Props> = ({children}) => {
 
   if (!user?.firstName){
     return <Navigate to="/setup"/>
+  }
+
+  if (!organization?.wallet){
+    return <Navigate to="/wallet"/>
   }
 
   return <>

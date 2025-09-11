@@ -11,6 +11,7 @@ import CreateMint from './pages/CreateMint'
 import AuthLogin from './pages/AuthLogin'
 import AuthRegister from './pages/AuthRegister'
 import CompleteSetup from './pages/CompleteSetup'
+import LinkWallet from './pages/LinkWallet'
 import AuthChange from './pages/AuthChange'
 import AuthReset from './pages/AuthReset'
 import AuthResetMessage from './pages/AuthResetMessage'
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/auth/login" element={<AuthLogin/>}/>
         <Route path="/auth/register" element={<AuthRegister/>}/>
         <Route path="/setup" element={<CompleteSetup/>}/>
+        <Route path="/wallet" element={<LinkWallet/>}/>
         <Route path="/auth/reset" element={<AuthReset/>}/>
         <Route path="/auth/reset/message" element={<AuthResetMessage/>}/>
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
