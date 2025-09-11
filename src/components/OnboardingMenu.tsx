@@ -24,7 +24,7 @@ const OnboardingMenu = ()=>{
                             image={'/onboarding/link.svg'}
                             title={'Create payment links'}
                             body={'Create links that your customers can use to complete payments in just a few clicks.'}
-                            link={'/receive'}
+                            link={'/links'}
                         />
                     </ul>
                 </div>
