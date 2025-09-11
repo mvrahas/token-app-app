@@ -9,7 +9,7 @@ const MenuButtonNav = ()=>{
 
     const items = [
         { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-        { name: 'Links', href: '/receive', icon: LinkIcon, current: false },
+        { name: 'Links', href: '/links', icon: LinkIcon, current: false },
         { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: false },
     ]
 
