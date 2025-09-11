@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/auth/change/:resetId" element={<AuthChange/>}/>
         <Route path="/" element={<Locked><UI><Dashboard/></UI></Locked>}/>
         <Route path="/send" element={<Locked><UI><TransferSend/></UI></Locked>}/>
-        <Route path="/receive" element={<Locked><UI><TransferReceive/></UI></Locked>}/>
+        <Route path="/links" element={<Locked><UI><TransferReceive/></UI></Locked>}/>
         <Route path="/mint" element={<Locked><UI><Mints/></UI></Locked>}/>
         <Route path="/settings" element={<Locked><UI><Settings/></UI></Locked>}/>
         <Route path="/settings/wallet" element={<Locked><UI><SettingsLinkWallet/></UI></Locked>}/>
