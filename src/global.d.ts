@@ -60,6 +60,8 @@ interface AuthContextType {
     login: () => Promise<void>
 }
 
+type AnalyticsContextType = any
+
 interface MetaplexMetadata {
     name: string,
     symbol: string,
@@ -117,3 +119,5 @@ interface PaymentPortalInfo {
     sandbox : boolean,
 }
 
+
+declare module '@analytics/google-tag-manager';
